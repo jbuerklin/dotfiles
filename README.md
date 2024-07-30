@@ -3,7 +3,7 @@
 ## Cloning
 ```bash
 cd ~
-git clone --bare git@github.com:jbuerklin/dotfiles.git .git
+git clone --bare https://github.com/jbuerklin/dotfiles.git .git
 git config --unset core.bare
 git config --local status.showUntrackedFiles no
 git checkout
