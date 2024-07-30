@@ -1,0 +1,34 @@
+#!/bin/bash
+if [ $# -gt 0 ]; then
+    cmd="$1"
+    shift
+    if [ "$cmd" == "run" ] || [ "$cmd" == "runserver" ] || [ "$cmd" == "r" ]; then
+        cmd="runserver"
+        re='^[0-9]+$'
+        if [ $# -gt 0 ]; then
+            host="$1"
+            shift
+            if [[ $host =~ $re ]] ; then
+                host="localhost:$host"
+            fi
+            cmd="$cmd $host"
+        fi
+    elif [ "$cmd" == "mig" ] || [ "$cmd" == "m" ]; then
+        cmd="migrate"
+    elif [ "$cmd" == "make" ] || [ "$cmd" == "mm" ]; then
+        cmd="makemigrations"
+    elif [ "$cmd" == "mmm" ]; then
+        cmd="makemigrations --merge"
+    elif [ "$cmd" == "s" ]; then
+        cmd="switchDB"
+    fi
+
+    runScript=scripts/run.sh
+    if [ -f "$runScript" ] && [[ "$cmd" =~ ^runserver ]]; then
+        dj="./scripts/run.sh $cmd $@"
+    else
+        dj="python3 -u manage.py $cmd $@"
+    fi
+    echo "$dj"
+    eval $dj
+fi
