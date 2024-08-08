@@ -1,7 +1,3 @@
-# Colors 0-15 defined in .Xresources
-# colour233 = solid black
-# colour243 = grey
-# colour233 = solid black
 
 # Base status bar colors
 set -g status-style fg=colour10,bg=colour8
